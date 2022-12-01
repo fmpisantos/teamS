@@ -1,0 +1,7 @@
+[
+    {"name":"@tests","path":"src/tests"},
+    {"name":"@pages","path":"src/pages"},
+    {"name":"@styles","path":"src/styles"},
+    {"name":"@components","path":"src/components"},
+    {"name":"@redux","path":"src/redux"}
+]
