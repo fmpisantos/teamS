@@ -3,7 +3,7 @@ package com.teamS.API.services;
 import java.util.ArrayList;
 
 import com.teamS.API.DTO.UserDTO;
-import com.teamS.API.models.User.UserDAO;
+import com.teamS.API.DAO.Security.User.Users;
 import com.teamS.API.repository.IUserLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +23,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDAO user = loginRepository.findByUsername(username);
+        Users user = loginRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
@@ -31,8 +31,8 @@ public class JwtUserDetailsService implements UserDetailsService {
                 new ArrayList<>());
     }
 
-    public UserDAO save(UserDTO user) {
-        UserDAO newUser = new UserDAO();
+    public Users save(UserDTO user) {
+        Users newUser = new Users();
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         if(loginRepository.findByUsername(user.getUsername()) == null) {

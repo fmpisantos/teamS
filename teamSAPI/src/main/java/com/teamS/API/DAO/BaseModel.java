@@ -1,4 +1,4 @@
-package com.teamS.API.models;
+package com.teamS.API.DAO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

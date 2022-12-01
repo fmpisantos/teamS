@@ -1,17 +1,16 @@
-package com.teamS.API.models.User;
+package com.teamS.API.DAO.Chats;
 
-import com.teamS.API.models.BaseModel;
+import com.teamS.API.DAO.BaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Devices extends BaseModel {
-    public String token;
-    public Integer userId;
+public class Chat extends BaseModel {
+    public long userId1;
+    public long userId2;
 }

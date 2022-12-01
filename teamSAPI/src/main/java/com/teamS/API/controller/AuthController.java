@@ -1,8 +1,8 @@
 package com.teamS.API.controller;
 
 import com.teamS.API.DTO.UserDTO;
-import com.teamS.API.models.Security.JwtRequest;
-import com.teamS.API.models.Security.JwtResponse;
+import com.teamS.API.DAO.Security.JwtRequest;
+import com.teamS.API.DAO.Security.JwtResponse;
 import com.teamS.API.security.JwtTokenUtil;
 import com.teamS.API.services.JwtUserDetailsService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

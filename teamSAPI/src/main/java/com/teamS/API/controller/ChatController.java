@@ -1,15 +1,22 @@
 package com.teamS.API.controller;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.teamS.API.DTO.*;
+import com.teamS.API.DAO.Chats.Chat;
+import com.teamS.API.DAO.Security.User.Devices;
+import com.teamS.API.repository.IChatRepository;
 import com.teamS.API.repository.IDeviceRepository;
+import com.teamS.API.repository.IUserLoginRepository;
 import com.teamS.API.services.FirebaseMessagingService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -17,10 +24,14 @@ import org.springframework.web.bind.annotation.*;
 public class ChatController {
     private final FirebaseMessagingService firebaseMessagingService;
     private final IDeviceRepository deviceRepo;
+    private final IUserLoginRepository userRepo;
+    private final IChatRepository chatRepo;
 
-    public ChatController(FirebaseMessagingService firebaseMessagingService, IDeviceRepository deviceRepo) {
+    public ChatController(FirebaseMessagingService firebaseMessagingService, IDeviceRepository deviceRepo, IUserLoginRepository userRepo, IChatRepository chatRepo) {
         this.firebaseMessagingService = firebaseMessagingService;
         this.deviceRepo = deviceRepo;
+        this.userRepo = userRepo;
+        this.chatRepo = chatRepo;
     }
 
     @Description("Simple string response to check if server is running")
@@ -28,8 +39,8 @@ public class ChatController {
             @ApiResponse(description = "Hello world", responseCode = "200"),
     })
     @RequestMapping(method = RequestMethod.GET, value = "/", name="Hello world")
-    public ResponseEntity<String> Controller(){
-        return ResponseEntity.ok("Hello world");
+    public ResponseEntity<String> Controller(Authentication authentication){
+        return ResponseEntity.ok("Hello " + authentication.getName());
     }
 
     @Description("Send a notification to a specific token/device")
@@ -38,11 +49,18 @@ public class ChatController {
     })
     @RequestMapping(method = RequestMethod.GET,value = "/notification")
     @ResponseBody
-    public String sendNotification(@RequestBody Note note,
+    public ResponseEntity<String> sendNotification(Authentication authentication, @RequestBody Note note,
                                    @RequestParam String id) throws FirebaseMessagingException {
-        // translate internal id to firebase token
-        String token = id;
-        return firebaseMessagingService.sendNotification(note, token);
+        try{
+            Devices device = deviceRepo.findByUserId(Long.parseLong(id));
+            if(device == null)
+                return ResponseEntity.badRequest().body("User has no device registered");
+            firebaseMessagingService.sendNotification(note, device.getToken());
+            return ResponseEntity.ok("Notification sent to " + id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Notification not sent to " + id);
+        }
     }
 
     @Description("List of users that are connected to a certain user")
@@ -50,14 +68,38 @@ public class ChatController {
             @ApiResponse(description = "Information regarding the delivery of the notification", responseCode = "200"),
     })
     @RequestMapping(method = RequestMethod.GET,value = "/users")
-    public String sendNotification() {
-        // return list users that the logged-in user can send notifications to
-        return "";
+    public ResponseEntity<List<ChatDTO>> sendNotification(Authentication authentication) throws FirebaseMessagingException {
+        try {
+            long userId = userRepo.findByUsername(authentication.getName()).getId();
+            List<Chat> chats = chatRepo.findInChatByUserId1OrUserId2AndActive(userId, true);
+            List<ChatDTO> chatDTOs = new ArrayList<>();
+            for (Chat chat : chats)
+                chatDTOs.add(chat.getUserId2() == userId ? new ChatDTO(chat.getUserId1()) : new ChatDTO(chat.getUserId2()));
+            return ResponseEntity.ok(chatDTOs);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @Description("Update the token of a user/device")
     @RequestMapping(method = RequestMethod.POST, value = "/token")
-    public void updateToken(@RequestParam String token) {
-        // save token to database
+    public ResponseEntity updateToken(Authentication authentication, @RequestParam String token) {
+        try
+        {
+            long id = userRepo.findByUsername(authentication.getName()).getId();
+            Devices device = deviceRepo.findByUserId(id);
+            if ( device != null )
+                device.setToken(token);
+            else
+                device = new Devices(token, id);
+            deviceRepo.save(device);
+            return ResponseEntity.ok("Token updated");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Token not updated");
+        }
     }
 }

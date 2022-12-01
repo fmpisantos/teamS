@@ -1,4 +1,4 @@
-package com.teamS.API.models.Security;
+package com.teamS.API.DAO.Security;
 
 import java.io.Serializable;
 
