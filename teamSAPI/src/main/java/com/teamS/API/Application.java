@@ -14,7 +14,7 @@ import org.springframework.core.io.ClassPathResource;
 import java.io.IOException;
 
 @SpringBootApplication
-@SecurityScheme(name = "Bearer", scheme = "basic", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
+@SecurityScheme(name = "Bearer", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER, bearerFormat = "JWT")
 public class Application {
 	@Bean
 	FirebaseMessaging firebaseMessaging() throws IOException {

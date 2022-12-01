@@ -3,6 +3,7 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.teamS.API.DTO.*;
 import com.teamS.API.repository.IDeviceRepository;
 import com.teamS.API.services.FirebaseMessagingService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -55,9 +56,6 @@ public class ChatController {
     }
 
     @Description("Update the token of a user/device")
-    @ApiResponses(value = {
-            @ApiResponse(description = "Information regarding the delivery of the notification", responseCode = "200"),
-    })
     @RequestMapping(method = RequestMethod.POST, value = "/token")
     public void updateToken(@RequestParam String token) {
         // save token to database
