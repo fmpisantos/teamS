@@ -13,5 +13,5 @@ import javax.persistence.Entity;
 @Entity
 public class Devices extends BaseModel {
     public String token;
-    public Long userId;
+    public Integer userId;
 }

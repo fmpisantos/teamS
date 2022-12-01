@@ -1,4 +1,4 @@
-package com.teamS.API.data;
+package com.teamS.API.DTO;
 
 
 import lombok.Data;

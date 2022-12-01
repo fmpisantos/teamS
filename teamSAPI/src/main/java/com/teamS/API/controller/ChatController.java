@@ -1,25 +1,24 @@
 package com.teamS.API.controller;
 import com.google.firebase.messaging.FirebaseMessagingException;
-import com.teamS.API.data.*;
-import com.teamS.API.models.User.Users;
+import com.teamS.API.DTO.*;
 import com.teamS.API.repository.IDeviceRepository;
-import com.teamS.API.repository.IUsersRepository;
 import com.teamS.API.services.FirebaseMessagingService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class Controller {
+@CrossOrigin
+@SecurityRequirement(name = "Bearer")
+public class ChatController {
     private final FirebaseMessagingService firebaseMessagingService;
-    private final IUsersRepository userRepo;
     private final IDeviceRepository deviceRepo;
 
-    public Controller(FirebaseMessagingService firebaseMessagingService, IUsersRepository userRepo, IDeviceRepository deviceRepo) {
+    public ChatController(FirebaseMessagingService firebaseMessagingService, IDeviceRepository deviceRepo) {
         this.firebaseMessagingService = firebaseMessagingService;
-        this.userRepo = userRepo;
         this.deviceRepo = deviceRepo;
     }
 
@@ -62,14 +61,5 @@ public class Controller {
     @RequestMapping(method = RequestMethod.POST, value = "/token")
     public void updateToken(@RequestParam String token) {
         // save token to database
-    }
-
-    @Description("Create user in database")
-    @RequestMapping(method = RequestMethod.POST, value = "/user")
-    public void createUser(@RequestBody User user) {
-        // parse user data to user model
-        Users dtoUser = new Users(user.getName(), user.getEmail());
-        // save user to database
-        userRepo.save(dtoUser);
     }
 }
