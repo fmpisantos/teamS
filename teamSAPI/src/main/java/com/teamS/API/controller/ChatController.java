@@ -102,4 +102,23 @@ public class ChatController {
             return ResponseEntity.badRequest().body("Token not updated");
         }
     }
+
+    @Description("Create a new chat")
+    @RequestMapping(method = RequestMethod.POST, value = "/chat")
+    public ResponseEntity createChat(Authentication authentication, @RequestParam long id) {
+        try
+        {
+            long userId = userRepo.findByUsername(authentication.getName()).getId();
+            if(userRepo.findById(Integer.parseInt(""+id)).isEmpty())
+                return ResponseEntity.badRequest().body("User does not exist");
+            Chat chat = new Chat(userId, id);
+            chatRepo.save(chat);
+            return ResponseEntity.ok("Chat created");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Chat not created");
+        }
+    }
 }
