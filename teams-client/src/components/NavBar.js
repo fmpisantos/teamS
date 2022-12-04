@@ -18,17 +18,17 @@ import { styled, alpha } from '@mui/material/styles';
 const pages = [
   {
   name: 'About',
-  path: '/',
+  path: '/about',
   menu: []
   },
   {
     name: 'Our Projects',
-    path: '/projects',
+    path: '/about#our-projects',
     menu: [
-      {
-        name: 'REST API',
-        path: '/projects/rest-api',
-      }
+      // {
+      //   name: 'REST API',
+      //   path: '/projects/rest-api',
+      // }
     ]
   }
 ];
@@ -98,7 +98,6 @@ function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    alert("mouse over")
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (path) => {
@@ -144,8 +143,7 @@ function NavBar() {
                     }
                   }
                   key={page.name}
-                  onMouseOver={page.menu.length > 0 ? handleClick : null}
-                  onClick={()=>{handleCloseNavMenu(page.path)}}
+                  onClick={page.menu.length > 0 ? handleClick : () => handleCloseNavMenu(page.path)}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {page.name}

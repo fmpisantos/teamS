@@ -8,24 +8,14 @@ import NavBar from "@components/NavBar"
 import Footer from "@components/Footer"
 import RestAPI from "./components/RestAPI";
 
-
-import {
-  increment,
-  incrementByAmount,
-  state
-} from '@redux/counter';
-
 const App = props =>{
-  const counter = useSelector(state);
-  const dispatch = useDispatch();
-  //const _increment = () => dispatch(increment())
-  //const _incrementByAmount = (amount) => {dispatch(incrementByAmount(amount))}
   return(
     <Router>
       <NavBar/>
       <Routes>
-        <Route path="/"         element={<About   {...props} name="About"/>}/>
-        <Route path="/restapi"  element={<RestAPI {...props} name="RestAPI"/>}/>
+        <Route path="/"                   element={<About   {...props} name="About"/>}   />
+        <Route path="/about"              element={<About   {...props} name="About"/>}   />
+        <Route path="/projects/rest-api"  element={<RestAPI {...props} name="RestAPI"/>} />
       </Routes>
       <Footer/>
     </Router>
