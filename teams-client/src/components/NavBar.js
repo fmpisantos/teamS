@@ -5,26 +5,17 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { styled, alpha } from '@mui/material/styles';
 
-const pages = ['Home'];
-const pagesPath = ['/home'];
-const pagesWithMenus = ['Our Projects'];
-const ourProjects = ['REST API'];
-const ourProjectsPath = ['/restAPI'];
+const pages = [['Home', '/home']];
+const ourProjects = [['Rest API','/restAPI']];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const StyledMenu = styled((props) => (
@@ -93,7 +84,8 @@ function NavBar() {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (path) => {
+    window.location = path;
     setAnchorEl(null);
   };
 
@@ -122,13 +114,13 @@ function NavBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page, idx) => (
+            {pages.map((page) => (
               <Button
                 key={page}
-                onClick={()=>{handleCloseNavMenu(pagesPath[idx])}}
+                onClick={()=>{handleCloseNavMenu(page[1])}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page[0]}
               </Button>
             ))}
             <div>
@@ -153,15 +145,19 @@ function NavBar() {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose} disableRipple>
-                Edit
-              </MenuItem>
-              <MenuItem onClick={handleClose} disableRipple>
-                Duplicate
-              </MenuItem>
+              {ourProjects.map((project) => (
+                <MenuItem 
+                key={project}
+                onClick={()=>{handleClose(project[1])}}
+                disableRipple>
+                {project[0]}
+                </MenuItem>
+              ))}
+              
               <Divider sx={{ my: 0.5 }} />
+              
               <div class="marginForMenu">
-                <b>Here you can check several personal projects developed by Team Santos</b>
+                <i>Here you can check several personal projects developed by Team Santos</i>
               </div>
             </StyledMenu>
           </div>

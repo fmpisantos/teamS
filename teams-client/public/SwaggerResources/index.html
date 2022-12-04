@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Swagger</title>
+        <style>
+            body { margin: 0; }
+            canvas { width: 100%; height: 100% }
+        </style>
+        <link rel="stylesheet" type="text/css" href="swagger-ui.css">
+    </head>
+<!-- create iframe in body-->
+    <body>
+        <div id="swagger-ui"></div>
+
+        <script src="swagger-ui-bundle.js"></script>
+        <script src="swagger-ui-standalone-preset.js"></script>
+
+        <script>
+        window.onload = function() {
+        const ui = SwaggerUIBundle({
+            url: "/api-docs/",
+            dom_id: '#swagger-ui',
+            presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIStandalonePreset
+            ]
+        })
+
+        window.ui = ui
+        }
+        </script>
+
+    </body>
+</html>
