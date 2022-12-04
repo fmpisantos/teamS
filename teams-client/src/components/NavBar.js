@@ -101,7 +101,8 @@ function NavBar() {
     alert("mouse over")
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (path) => {
+    window.location = path;
     setAnchorEl(null);
   };
 

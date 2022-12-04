@@ -6,6 +6,7 @@ import '@styles/App.css';
 import About  from "@pages/About"
 import NavBar from "@components/NavBar"
 import Footer from "@components/Footer"
+import RestAPI from "./components/RestAPI";
 
 
 import {
@@ -23,7 +24,8 @@ const App = props =>{
     <Router>
       <NavBar/>
       <Routes>
-        <Route path="/" element={<About {...props} name="About"/>}/>
+        <Route path="/"         element={<About   {...props} name="About"/>}/>
+        <Route path="/restapi"  element={<RestAPI {...props} name="RestAPI"/>}/>
       </Routes>
       <Footer/>
     </Router>
