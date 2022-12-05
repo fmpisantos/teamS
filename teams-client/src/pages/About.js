@@ -1,14 +1,12 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Spacing from "@components/Spacing";
@@ -17,16 +15,9 @@ import Paragraph from '@components/Paragraph';
 
 const theme = createTheme();
 
-export default function About() {
+export default function About(props) {
 
-  const cards = [
-    {
-      header: "REST API",
-      description: "A REST API that supports out chat functionality, implemented using Spring-boot, Spring-security & authentication, JWToken using a Postgres database.",
-      path: "/projects/rest-api",
-      image: "https://source.unsplash.com/random",
-    }
-  ]
+  const cards = props.projects;
 
   return (
     <ThemeProvider theme={theme}>

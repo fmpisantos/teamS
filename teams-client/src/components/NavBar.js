@@ -14,24 +14,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Divider from '@mui/material/Divider';
 import { styled, alpha } from '@mui/material/styles';
 
-// const pages = ['About'];
-const pages = [
-  {
-  name: 'About',
-  path: '/about',
-  menu: []
-  },
-  {
-    name: 'Our Projects',
-    path: '/about#our-projects',
-    menu: [
-      // {
-      //   name: 'REST API',
-      //   path: '/projects/rest-api',
-      // }
-    ]
-  }
-];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const StyledMenu = styled((props) => (
@@ -75,19 +57,25 @@ const StyledMenu = styled((props) => (
     },
 }));
 
-function NavBar() {
+function NavBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const openNav = Boolean(anchorElNav);
 
   const handleOpenNavMenu = (event) => {
+    debugger
     setAnchorElNav(event.currentTarget);
   };
+  
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = (path) => {
-    window.location = path;
+    if(typeof path === 'string' || path instanceof String)
+      window.location = path;
     setAnchorElNav(null);
   };
 
@@ -95,13 +83,14 @@ function NavBar() {
     setAnchorElUser(null);
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = (path) => {
-    window.location = path;
+    if(typeof path === 'string' || path instanceof String)
+      window.location = path;
     setAnchorEl(null);
   };
 
@@ -130,7 +119,7 @@ function NavBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {props.pages.map((page) => (
               <>
                 <Button
                   {...page.menu.length > 0 && 
@@ -143,36 +132,32 @@ function NavBar() {
                     }
                   }
                   key={page.name}
-                  onClick={page.menu.length > 0 ? handleClick : () => handleCloseNavMenu(page.path)}
+                  onClick={page.menu.length > 0 ? handleOpenNavMenu : () => handleCloseNavMenu(page.path)}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {page.name}
                 </Button>
-                {page.menu.length > 0 && (
                     <StyledMenu
                       id="demo-customized-menu"
                       MenuListProps={{
                         'aria-labelledby': 'demo-customized-button',
                       }}
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
+                      anchorEl={anchorElNav}
+                      open={openNav}
+                      onClose={handleCloseNavMenu}
                     >
                       {page.menu.map((item, idx) => (
                         <>
                           {idx > 0 && <Divider />}
-                          <MenuItem onClick={handleClose} disableRipple>
+                          <MenuItem onClick={()=>handleCloseNavMenu(item.path)} disableRipple>
                             {item.name}
                           </MenuItem>
                         </>
                       ))}
                   </StyledMenu>
-                )}
               </>
             ))}
           </Box>
-
-          
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
