@@ -19,7 +19,7 @@ code {
   justify-content: center;
   flex-direction: column;
   gap: 20px;
-  height: 100vh;
+  height: 100%;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   background-color: #f8f9fd;
 }

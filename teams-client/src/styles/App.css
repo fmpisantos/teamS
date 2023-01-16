@@ -40,3 +40,75 @@
 .marginForMenu {
   margin: 2%;
 }
+
+.scrollable {
+  overflow-y: scroll;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+._shadow {
+  box-shadow: 0 0 0 0 #1565C0;
+  transition: box-shadow 0.3s;
+}
+
+._shadow:hover {
+  box-shadow: 0 0 0 0.2rem #1565C0;
+}
+
+.blue {
+  background-color: #1565C0;
+}
+
+.red {
+  background-color: #D32F2F;
+}
+
+.black {
+  background-color: #000000;
+}
+
+.white {
+  background-color: #FFFFFF;
+}
+
+.font-white {
+  color: #FFFFFF;
+}
+
+.font-black {
+  color: #000000;
+}
+
+.lightgrey {
+  background-color: #F5F5F5;
+}
+
+.noPadding {
+  padding: 0 !important;
+}
+
+._row {
+  display: flex;
+  flex-direction: row;
+}
+
+.centerVeritcal {
+  display: flex;
+  align-items: center;
+}
+
+.roundedEdges {
+  border-radius: 8px;
+}
+
+.centerHorizontal {
+  display: flex;
+  justify-content: center;
+}
+._col {
+  display: flex;
+  flex-direction: column;
+}

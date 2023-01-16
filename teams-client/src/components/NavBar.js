@@ -65,7 +65,6 @@ function NavBar(props) {
   const openNav = Boolean(anchorElNav);
 
   const handleOpenNavMenu = (event) => {
-    debugger
     setAnchorElNav(event.currentTarget);
   };
   
@@ -95,7 +94,7 @@ function NavBar(props) {
   };
 
   return (
-    <AppBar sx={{ bgcolor: "black" }}position="fixed">
+    <AppBar sx={{ bgcolor: "black" }} position="fixed">
       <Container maxWidth="false">
         <Toolbar disableGutters>
           
