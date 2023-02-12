@@ -26,6 +26,13 @@ const App = props =>{
           description: "A REST API that supports our chat functionality, implemented using Spring-boot, Spring-security & authentication, JWToken using a Postgres database.",
           path: "/rest-api",
           image: "https://i.imgur.com/nMSbAgc.png",
+        },
+        {
+          name: 'Chat',
+          header: "Chat",
+          description: "A chat application that supports multiple users, implemented using React, Spring-boot, Spring-security & authentication, JWToken using a Postgres database.",
+          path: "/chat",
+          image: "https://imgur.com/3hqaM0d.png",
         }
       ]
     }

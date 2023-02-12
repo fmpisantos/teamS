@@ -49,6 +49,7 @@ export default function About(props) {
           </Box>
           <Container maxWidth="md" id={"our-projects"}>
             <Title size={3}>Our Projects</Title>
+            <Spacing size={"5"}/>
             <Grid container spacing={4}>
               {cards.map((card) => (
                 <Grid key={card} xs={12} sm={6} md={4} onClick={()=>window.location = card.path} className="cursorPointer _shadow padding-2">
@@ -64,9 +65,6 @@ export default function About(props) {
                       <Title size={6}>{card.header}</Title>
                       <Paragraph size={9}>{card.description} </Paragraph>
                     </CardContent>
-                    <center>
-                      <Button size="small" onClick={()=>window.location = card.path}>View</Button>
-                    </center>
                   </Card>
                 </Grid>
               ))}
