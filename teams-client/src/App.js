@@ -1,15 +1,37 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-
+import { CSSTransition } from "react-transition-group";
 import '@styles/App.css';
 import '@styles/utils-min.css';
 import About  from "@pages/About"
 import NavBar from "@components/NavBar"
 import Footer from "@components/Footer"
 import RestAPI from "@components/RestAPI";
-import Chat from "@components/Chat";
+import Chat from "@components/Chat/Chat";
+import ChatButton from "@components/Chat/ChatButton";
+import { useSpring, animated } from 'react-spring';
 
 const App = props =>{
+  const [chatState, setChatState] = React.useState({open:false, notifications: 0});
+
+  const toggleChat = () => {
+    setChatState({...chatState, open: !chatState.open});
+  }
+
+  const showChat = () => {
+    setChatState({...chatState, open: true});
+  }
+
+  const animationPropsChat = useSpring({
+    opacity: chatState.open ? 1 : 0,
+    config: { mass: 1, tension: 100, friction: 25 }
+  });
+
+  const animationPropsChatButton = useSpring({
+    opacity: !chatState.open ? 1 : 0,
+    config: { mass: 1, tension: 100, friction: 25 }
+  });
+
   const pages = [
     {
       name: 'About',
@@ -24,15 +46,16 @@ const App = props =>{
           name: 'REST API',
           header: "REST API",
           description: "A REST API that supports our chat functionality, implemented using Spring-boot, Spring-security & authentication, JWToken using a Postgres database.",
-          path: "/rest-api",
+          path: "/projects/rest-api",
           image: "https://i.imgur.com/nMSbAgc.png",
         },
         {
           name: 'Chat',
           header: "Chat",
           description: "A chat application that supports multiple users, implemented using React, Spring-boot, Spring-security & authentication, JWToken using a Postgres database.",
-          path: "/chat",
+          path: "/projects/chat",
           image: "https://imgur.com/3hqaM0d.png",
+          func: ()=>{ showChat() }
         }
       ]
     }
@@ -42,19 +65,26 @@ const App = props =>{
     <Router>
       <div className="vh-100">
         <div className="row-5">
-          <NavBar pages={pages}/>
+          <NavBar pages={pages}  showChat={showChat} />
         </div>
         <div className="row-84">
           <Routes>
-            <Route path="/"                   element={ <About    {...props} projects={pages[1].menu} name="About"/>   }   />
-            <Route path="/about"              element={ <About    {...props} projects={pages[1].menu} name="About"/>   }   />
-            <Route path="/rest-api"           element={ <RestAPI  {...props}                          name="RestAPI"/> }   />
-            <Route path="/chat"               element={ <Chat     {...props}                          name="Chat"/> }   />
+            <Route path="/"                   element={ <About      {...props} projects={pages[1].menu}  showChat={showChat}  name="About"/>   }   />
+            <Route path="/about"              element={ <About      {...props} projects={pages[1].menu}  showChat={showChat}  name="About"/>  }   />
+            <Route path="/projects/rest-api"  element={ <RestAPI    {...props}                          name="RestAPI"/> }   />
           </Routes>
         </div>
         <div className="row-10">
           <Footer/>
         </div>
+        {chatState.open ? 
+          <animated.div style={animationPropsChat}>
+            <Chat {...props} toggleChat={toggleChat} />
+          </animated.div> 
+        : 
+          <animated.div style={animationPropsChatButton}>
+            <ChatButton {...props} toggleChat={toggleChat} />
+          </animated.div>}
       </div>
     </Router>
   )

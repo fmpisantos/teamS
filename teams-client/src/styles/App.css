@@ -112,3 +112,53 @@
   display: flex;
   flex-direction: column;
 }
+
+.chatContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 18%;
+  height: 36%;
+  overflow: scroll;
+}
+
+.chat {
+  width: 40%;
+  height: 60%;
+}
+
+.chatContainerSmall {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  overflow: scroll;
+  border: 1px solid lightgray;
+  padding: 16px !important;
+}
+
+.flex {
+  flex : 1;
+}
+
+.chatButton{
+  background: black;
+  border: 0 '1px solid black';
+  border-radius: 50%;
+  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+  color: white;
+  width: 48;
+  height: 48;
+  padding: 25px 25px;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+}

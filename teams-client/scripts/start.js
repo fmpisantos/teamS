@@ -102,11 +102,9 @@ checkBrowsers(paths.appPath, isInteractive)
     const compiler = createCompiler({
       appName,
       config,
-      devSocket,
       urls,
       useYarn,
       useTypeScript,
-      tscCompileOnError,
       webpack,
     });
     // Load proxy config
