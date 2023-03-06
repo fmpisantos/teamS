@@ -48,14 +48,14 @@ const App = props =>{
           header: "REST API",
           description: "A REST API that supports our chat functionality, implemented using Spring-boot, Spring-security & authentication, JWToken using a Postgres database.",
           path: "/projects/rest-api",
-          image: "https://i.imgur.com/nMSbAgc.png",
+          image: "./images/rest-api.png",
         },
         {
           name: 'Chat',
           header: "Chat",
           description: "A chat application that supports multiple users, implemented using React, Spring-boot, Spring-security & authentication, JWToken using a Postgres database.",
           path: "/projects/chat",
-          image: "https://imgur.com/3hqaM0d.png",
+          image: "./images/chat.png",
           func: ()=>{ showChat() }
         }
         ,
@@ -64,7 +64,7 @@ const App = props =>{
           header: "Snake",
           description: "A simple snake game with HTML and JavaScript.",
           path: "/projects/snake",
-          image: "./assets/images/snake.png",
+          image: "./images/snake.png",
         }
       ]
     }
@@ -76,14 +76,16 @@ const App = props =>{
         <div className="row-5">
           <NavBar pages={pages}  showChat={showChat} />
         </div>
-        <div className="row-84">
+        <div className="row-80">
+        <div className="row-100 scrollable">
           <Routes>
-            <Route path="/"                   element={ <About    {...props} projects={pages[1].menu} name="About"/>   }    />
-            <Route path="/about"              element={ <About    {...props} projects={pages[1].menu} name="About"/>   }    />
-            <Route path="/projects/rest-api"           element={ <RestAPI  {...props}                          name="RestAPI"/> }    />
-            <Route path="/projects/chat"               element={ <Chat     {...props}                          name="Chat"/> }       />
-            <Route path="/projects/snake"              element={ <Snake     {...props}                         name="Snake"/> }      />
+            <Route path="/"                             element={ <About    {...props} projects={pages[1].menu}   name="About"/>   }    />
+            <Route path="/about"                        element={ <About    {...props} projects={pages[1].menu}   name="About"/>   }    />
+            <Route path="/projects/rest-api"            element={ <RestAPI  {...props}                            name="RestAPI"/> }    />
+            <Route path="/projects/chat"                element={ <Chat     {...props}                            name="Chat"/> }       />
+            <Route path="/projects/snake"               element={ <Snake    {...props}                            name="Snake"/> }      />
           </Routes>
+        </div>
         </div>
         <div className="row-10">
           <Footer/>

@@ -135,8 +135,9 @@ const Snake = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      height: "80vh",
-      width: "100vw"
+      height: "70vh",
+      width: "100%",
+      overflow: "auto"
     },
     canvas: {
       border: "1px solid black",
