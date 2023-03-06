@@ -8,6 +8,7 @@ import NavBar from "@components/NavBar"
 import Footer from "@components/Footer"
 import RestAPI from "@components/RestAPI";
 import Chat from "@components/Chat";
+import Snake from "@components/Snake";
 
 const App = props =>{
   const pages = [
@@ -50,6 +51,7 @@ const App = props =>{
             <Route path="/about"              element={ <About    {...props} projects={pages[1].menu} name="About"/>   }   />
             <Route path="/rest-api"           element={ <RestAPI  {...props}                          name="RestAPI"/> }   />
             <Route path="/chat"               element={ <Chat     {...props}                          name="Chat"/> }   />
+            <Route path="/snake"              element={ <Snake     {...props}                         name="Snake"/> }   />
           </Routes>
         </div>
         <div className="row-10">
