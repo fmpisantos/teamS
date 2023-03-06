@@ -42,7 +42,7 @@ export default function About(props) {
                 spacing={2}
                 justifyContent="center"
               >
-                <Button variant="contained" onClick={()=>window.location = "/projects/chat"}>Contact us</Button>
+                <Button variant="contained" onClick={props.showChat}>Contact us</Button>
                 <Button variant="outlined" onClick={()=>{window.open('mailto:filipesantosdev@gmail.com,bvsantosdev@gmail.com')}}>Email us</Button>
               </Stack>
             </Container>
@@ -52,7 +52,7 @@ export default function About(props) {
             <Spacing size={"5"}/>
             <Grid container spacing={4}>
               {cards.map((card) => (
-                <Grid key={card} xs={12} sm={6} md={4} onClick={()=>window.location = card.path} className="cursorPointer _shadow padding-2">
+                <Grid key={card} xs={12} sm={6} md={4} onClick={()=>{card.func ? card.func() : window.location = card.path}} className="cursorPointer _shadow padding-2">
                   <Card
                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                   >

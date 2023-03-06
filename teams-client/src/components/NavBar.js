@@ -131,7 +131,7 @@ function NavBar(props) {
                     }
                   }
                   key={page.name}
-                  onClick={page.menu.length > 0 ? handleOpenNavMenu : () => handleCloseNavMenu(page.path)}
+                  onClick={page.menu.length > 0 ? handleOpenNavMenu : () => {page.func ? page.func() : handleCloseNavMenu(page.path)}}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {page.name}
@@ -148,7 +148,7 @@ function NavBar(props) {
                       {page.menu.map((item, idx) => (
                         <>
                           {idx > 0 && <Divider />}
-                          <MenuItem onClick={()=>handleCloseNavMenu(item.path)} disableRipple>
+                          <MenuItem onClick={()=>{item.func ? item.func() : handleCloseNavMenu(item.path)} } disableRipple>
                             {item.name}
                           </MenuItem>
                         </>
