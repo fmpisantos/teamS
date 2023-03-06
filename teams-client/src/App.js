@@ -10,6 +10,7 @@ import RestAPI from "@components/RestAPI";
 import Chat from "@components/Chat/Chat";
 import ChatButton from "@components/Chat/ChatButton";
 import { useSpring, animated } from 'react-spring';
+import Snake from "@components/Snake";
 
 const App = props =>{
   const [chatState, setChatState] = React.useState({open:false, notifications: 0});
@@ -57,6 +58,14 @@ const App = props =>{
           image: "https://imgur.com/3hqaM0d.png",
           func: ()=>{ showChat() }
         }
+        ,
+        {
+          name: 'Snake',
+          header: "Snake",
+          description: "A simple snake game with HTML and JavaScript.",
+          path: "/projects/snake",
+          image: "./assets/images/snake.png",
+        }
       ]
     }
   ];
@@ -72,6 +81,8 @@ const App = props =>{
             <Route path="/"                   element={ <About      {...props} projects={pages[1].menu}  showChat={showChat}  name="About"/>   }   />
             <Route path="/about"              element={ <About      {...props} projects={pages[1].menu}  showChat={showChat}  name="About"/>  }   />
             <Route path="/projects/rest-api"  element={ <RestAPI    {...props}                          name="RestAPI"/> }   />
+            <Route path="/projects/chat"               element={ <Chat     {...props}                          name="Chat"/> }       />
+            <Route path="/projects/snake"              element={ <Snake     {...props}                         name="Snake"/> }      />
           </Routes>
         </div>
         <div className="row-10">
