@@ -58,6 +58,14 @@ const App = props =>{
           image: "https://imgur.com/3hqaM0d.png",
           func: ()=>{ showChat() }
         }
+        ,
+        {
+          name: 'Snake',
+          header: "Snake",
+          description: "A simple snake game with HTML and JavaScript.",
+          path: "/projects/snake",
+          image: "./assets/images/snake.png",
+        }
       ]
     }
   ];
@@ -70,10 +78,11 @@ const App = props =>{
         </div>
         <div className="row-84">
           <Routes>
-            <Route path="/"                   element={ <About    {...props} projects={pages[1].menu} name="About"/>   }   />
-            <Route path="/about"              element={ <About    {...props} projects={pages[1].menu} name="About"/>   }   />
-            <Route path="/rest-api"           element={ <RestAPI  {...props}                          name="RestAPI"/> }   />
-            <Route path="/chat"               element={ <Chat     {...props}                          name="Chat"/> }   />
+            <Route path="/"                   element={ <About    {...props} projects={pages[1].menu} name="About"/>   }    />
+            <Route path="/about"              element={ <About    {...props} projects={pages[1].menu} name="About"/>   }    />
+            <Route path="/projects/rest-api"           element={ <RestAPI  {...props}                          name="RestAPI"/> }    />
+            <Route path="/projects/chat"               element={ <Chat     {...props}                          name="Chat"/> }       />
+            <Route path="/projects/snake"              element={ <Snake     {...props}                         name="Snake"/> }      />
           </Routes>
         </div>
         <div className="row-10">
