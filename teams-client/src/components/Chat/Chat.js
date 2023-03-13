@@ -7,7 +7,14 @@ function Chat(props) {
         <div className="chatContainer">
             <form className={`row-100 padding-2`}>
             <div className="row-100 _row lightgrey">
-                         <Register {...props} />
+                {
+                    (!props.hasUser()) ?
+                    (
+                        <Register {...props} />
+                    ) : (
+                        <></>
+                    )
+                }
                 </div>
             </form>
         </div>

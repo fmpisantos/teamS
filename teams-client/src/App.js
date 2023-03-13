@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
 import '@styles/App.css';
 import '@styles/utils-min.css';
 import About  from "@pages/About"
@@ -11,17 +10,26 @@ import Chat from "@components/Chat/Chat";
 import ChatButton from "@components/Chat/ChatButton";
 import { useSpring, animated } from 'react-spring';
 import Snake from "@components/Snake";
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  login, 
+  reset, 
+  state,
+  showChat,
+  toggleChat
+ } from '@redux/chat/chat';
+
 
 const App = props =>{
-  const [chatState, setChatState] = React.useState({open:false, notifications: 0});
+  const chatState = useSelector(state);
+  const dispatch = useDispatch();
+  const _login = (user) => dispatch(login(user))
+  const _reset = () => dispatch(reset())
+  const _hasUser = () => chatState.token !== ""
+  const _showChat = () => dispatch(showChat())
+  const _toggleChat = () => dispatch(toggleChat())
 
-  const toggleChat = () => {
-    setChatState({...chatState, open: !chatState.open});
-  }
-
-  const showChat = () => {
-    setChatState({...chatState, open: true});
-  }
+  console.log(chatState)
 
   const animationPropsChat = useSpring({
     opacity: chatState.open ? 1 : 0,
@@ -56,7 +64,7 @@ const App = props =>{
           description: "A chat application that supports multiple users, implemented using React, Spring-boot, Spring-security & authentication, JWToken using a Postgres database.",
           path: "/projects/chat",
           image: "./images/chat.png",
-          func: ()=>{ showChat() }
+          func: ()=>{ _showChat() }
         }
         ,
         {
@@ -74,7 +82,7 @@ const App = props =>{
     <Router>
       <div className="vh-100">
         <div className="row-5">
-          <NavBar pages={pages}  showChat={showChat} />
+          <NavBar pages={pages}  showChat={_showChat} />
         </div>
         <div className="row-80">
         <div className="row-100 scrollable">
@@ -82,8 +90,8 @@ const App = props =>{
             <Route path="/"                             element={ <About    {...props} projects={pages[1].menu}   name="About"/>   }    />
             <Route path="/about"                        element={ <About    {...props} projects={pages[1].menu}   name="About"/>   }    />
             <Route path="/projects/rest-api"            element={ <RestAPI  {...props}                            name="RestAPI"/> }    />
-            <Route path="/projects/chat"                element={ <Chat     {...props}                            name="Chat"/> }       />
-            <Route path="/projects/snake"               element={ <Snake    {...props}                            name="Snake"/> }      />
+            <Route path="/projects/chat"                element={ <Chat     {...props} chat={chatState} login={_login} reset={_reset} hasUser={_hasUser} name="Chat"/> }       />
+            <Route path="/projects/snake"               element={ <Snake    {...props} name="Snake"/> }      />
           </Routes>
         </div>
         </div>
@@ -92,11 +100,11 @@ const App = props =>{
         </div>
         {chatState.open ? 
           <animated.div style={animationPropsChat}>
-            <Chat {...props} toggleChat={toggleChat} />
+            <Chat {...props} chat={chatState} login={_login} reset={_reset} hasUser={_hasUser} toggleChat={_toggleChat} />
           </animated.div> 
         : 
           <animated.div style={animationPropsChatButton}>
-            <ChatButton {...props} toggleChat={toggleChat} />
+            <ChatButton {...props} chat={chatState} login={_login} reset={_reset} hasUser={_hasUser} toggleChat={()=>{console.log(chatState);_toggleChat()}} />
           </animated.div>}
       </div>
     </Router>

@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './counter';
+import chatReducer from './chat/chat';
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    chat: chatReducer,
   },
 });
