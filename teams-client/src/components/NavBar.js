@@ -148,7 +148,7 @@ function NavBar(props) {
                       {page.menu.map((item, idx) => (
                         <>
                           {idx > 0 && <Divider />}
-                          <MenuItem onClick={()=>{item.func ? item.func() : handleCloseNavMenu(item.path)} } disableRipple>
+                          <MenuItem key={idx} onClick={()=>{item.func ? item.func() : handleCloseNavMenu(item.path)} } disableRipple>
                             {item.name}
                           </MenuItem>
                         </>
