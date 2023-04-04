@@ -84,7 +84,7 @@ const App = props =>{
         <div className="row-5">
           <NavBar pages={pages}  showChat={_showChat} />
         </div>
-        <div className="row-80">
+        <div className="row-84">
         <div className="row-100 scrollable">
           <Routes>
             <Route path="/"                             element={ <About    {...props} projects={pages[1].menu}   name="About"/>   }    />
