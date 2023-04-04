@@ -2,9 +2,8 @@ import { Button, TextField } from "@mui/material";
 import React from "react";
 
 function Register(props) {
-    const 
-    [validEmail, setValidEmail] = React.useState(true),
-    [email, setEmail] = React.useState("");
+    const   [validEmail, setValidEmail] = React.useState(true),
+            [email, setEmail] = React.useState("");
 
     const validateEmail = (mail=email) => {
         setValidEmail(mail.match(
@@ -31,7 +30,7 @@ function Register(props) {
                 <TextField value={email} onChange={(e)=>{setEmail(e.target.value)}} error={!validEmail} type="email" variant="standard" size="small" label="Email" className="col-100" />
             </div>
             <div className="row-18 col-100 padding-5 centerHorizontal">
-                <Button type="submit" color="info" size="small" variant="outlined" onClick={(e)=>{e.preventDefault();validateEmail();alert("Send message")}}>Send</Button>
+                <Button type="submit" color="info" size="small" variant="outlined" onClick={(e)=>{e.preventDefault();validateEmail();alert("Send message")}}>Register</Button>
             </div>
         </div>
     );
