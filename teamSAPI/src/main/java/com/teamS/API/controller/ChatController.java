@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/chat")
 @CrossOrigin
 @SecurityRequirement(name = "Bearer")
 public class ChatController {
