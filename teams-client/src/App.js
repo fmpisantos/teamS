@@ -95,7 +95,7 @@ const App = props =>{
           </Routes>
         </div>
         </div>
-        <div className="row-10">
+        <div className="row-7">
           <Footer/>
         </div>
         {chatState.open ? 
