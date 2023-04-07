@@ -162,3 +162,8 @@
   transform: translate(-50%, -50%);
   width: 50px;
 }
+
+.nonScrollable {
+  overflow: hidden;
+  scrollbar-width: none;
+}

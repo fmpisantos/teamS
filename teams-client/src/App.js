@@ -80,7 +80,7 @@ const App = props =>{
 
   return(
     <Router>
-      <div className="vh-100">
+      <div className="vh-100 nonScrollable">
         <div className="row-5">
           <NavBar pages={pages}  showChat={_showChat} />
         </div>
@@ -95,7 +95,7 @@ const App = props =>{
           </Routes>
         </div>
         </div>
-        <div className="row-7">
+        <div className="row-10">
           <Footer/>
         </div>
         {chatState.open ? 
