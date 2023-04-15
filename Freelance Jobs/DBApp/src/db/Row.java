@@ -20,11 +20,12 @@ public class Row implements Serializable{
 			Object objColValue 	= htblColNameValue.get(columnName);
 			String strColType 	= htblColNameType.get(columnName);
 			
-			try {
-				columns.put(columnName, Class.forName(strColType).cast(objColValue));
-			} catch (ClassNotFoundException e) {
-				System.out.println("Unable to cast colunm");
-			}
+				try {
+					columns.put(columnName, Class.forName(strColType).cast(objColValue));
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 	}
 	

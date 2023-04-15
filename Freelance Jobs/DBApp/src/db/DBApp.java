@@ -7,9 +7,6 @@ import java.io.*;
 import exceptions.DBAppException;
 
 public class DBApp {
-
-	//these consts should go into a config file
-	public static final Integer MaximumRowsCountinTablePage = 200;
 	
 	public DBApp() {
 	}
@@ -35,7 +32,7 @@ public class DBApp {
 			if (file.exists()) {
 			    throw new DBAppException("Table already exists");
 			} else {
-			    Table tbl = new Table(htblColNameType);
+			    Table tbl = new Table(htblColNameType, strClusteringKeyColumn);
 			    try {
 		    		 file.getParentFile().mkdirs();
 			         FileOutputStream fileOut = new FileOutputStream(file);
@@ -67,26 +64,26 @@ public class DBApp {
 		    throw new DBAppException("Table provided doesn not exist");
 		} else {
 			Table tbl = null;
-		    try {
+	    	try {
 		    	FileInputStream fileIn = new FileInputStream(file);
 		        ObjectInputStream in = new ObjectInputStream(fileIn);
 		        tbl  = (Table) in.readObject();
 		        in.close();
 		        fileIn.close();
+		        tbl.insert(strTableName, htblColNameValue);
 		      } catch (IOException i) {
 		    	  i.printStackTrace();
 		      } catch (ClassNotFoundException e) {
 		    	  e.printStackTrace();
 		      }
-		    System.out.println("Table counter:"+tbl.getiPage_Counter());
-		    
 		}
 	}
 	
-	// following method updates one row only 
-	// htblColNameValue holds the key and new value 
-	// htblColNameValue will not include clustering key as column name 
-	// strClusteringKeyValue is the value to look for to find the row to update. 
+	
+	// following method updates one row only
+	// htblColNameValue holds the key and new value
+	// htblColNameValue will not include clustering key as column name
+	// strClusteringKeyValue is the value to look for to find the row to update.
 	public void updateTable(String strTableName, String strClusteringKeyValue, Hashtable<String,Object> htblColNameValue ) throws DBAppException{
 		
 	}

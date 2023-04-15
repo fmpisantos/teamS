@@ -16,7 +16,7 @@ public class Main {
 		
 		htblColNameType.put("id", "java.lang.Integer");
 		htblColNameType.put("name", "java.lang.String");
-		htblColNameType.put("gpa", "java.lang.double");
+		htblColNameType.put("gpa", "java.lang.Double");
 		
 		Hashtable<String,Object> htblColNameValue = new Hashtable<String,Object>(); 
 		htblColNameValue.put("id", new Integer( 2343432 )); 
