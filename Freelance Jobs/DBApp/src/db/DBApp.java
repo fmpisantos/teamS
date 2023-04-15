@@ -76,6 +76,37 @@ public class DBApp {
 		      } catch (ClassNotFoundException e) {
 		    	  e.printStackTrace();
 		      }
+	    	//tbl.readLastPage();
+		}
+	}
+	
+	public void readTable(String strTableName) throws DBAppException {
+		String tablePath = "data/"+strTableName+"/"+strTableName+".ser";
+		File file = new File(tablePath);
+		if (!file.exists()) {
+		    throw new DBAppException("Table provided doesn not exist");
+		} else {
+			Table tbl = null;
+	    	try {
+		    	FileInputStream fileIn = new FileInputStream(file);
+		        ObjectInputStream in = new ObjectInputStream(fileIn);
+		        tbl  = (Table) in.readObject();
+		        in.close();
+		        fileIn.close();
+		      } catch (IOException i) {
+		    	  i.printStackTrace();
+		      } catch (ClassNotFoundException e) {
+		    	  e.printStackTrace();
+		      }
+	    	tbl.readLastPage();
+	    	/*System.out.println(tbl.getiPage_Counter());
+	    	for(String s: tbl.getHtblColNameType().keySet()) {
+	    		System.out.println(s);
+	    	}
+	    	
+	    	System.out.println(tbl.getPagesList().size());*/
+	    	
+	    	//tbl.readLastPage();
 		}
 	}
 	

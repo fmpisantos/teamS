@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import exceptions.DBAppException;
 
 public class Row implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Hashtable<String, Object> columns;
 	
 	public Row(Hashtable<String,Object> htblColNameValue, Hashtable<String,String> htblColNameType) throws DBAppException {

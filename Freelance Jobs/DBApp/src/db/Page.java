@@ -7,6 +7,8 @@ import java.util.Vector;
 import exceptions.DBAppException;
 
 public class Page implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	//this const should go into a config file
 	public static final Integer MaximumRowsCountinTablePage = 200;
 	

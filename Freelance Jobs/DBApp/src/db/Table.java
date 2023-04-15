@@ -1,6 +1,5 @@
 package db;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
@@ -15,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Table implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int iPage_Counter;
 	String strClusteringKeyColumn;
 	private Hashtable<String,String> htblColNameType;
@@ -43,10 +43,19 @@ public class Table implements Serializable{
 		this.htblColNameType = htblColNameType;
 	}
 	
+	public LinkedList<String> getPagesList() {
+		return this.pagesList;
+	}
+	
+	public void setPagesList(LinkedList<String> pagesList) {
+		this.pagesList = pagesList;
+	}
+	
 	public void insert(String strTableName, Hashtable<String,Object> htblColNameValue) throws DBAppException {
 		Page page = getWritablePage(strTableName);
 		page.addRow(htblColNameValue, this.htblColNameType);
 		writePage(strTableName, page);
+		writeTable(strTableName);
 	}
 	
 	public void update(String strTableName, String strClusteringKeyValue, Hashtable<String,Object> htblColNameValue) throws DBAppException {
@@ -124,6 +133,21 @@ public class Table implements Serializable{
 	      }
 	}
 	
+	private void writeTable(String strTableName) throws DBAppException {
+		String tablePath = "data/"+strTableName+"/"+strTableName+".ser";
+		File file = new File(tablePath);
+	    try {
+	         FileOutputStream fileOut = new FileOutputStream(file);
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         out.writeObject(this);
+	         out.close();
+	         fileOut.close();
+	         System.out.println("Serialized page data is saved in "+tablePath);
+	      } catch (IOException i) {
+	         i.printStackTrace();
+	      }
+	}
+	
 	private Page getWritablePage(String strTableName) throws DBAppException {
 		if( pagesList.isEmpty() ) {
 			return newPage(strTableName);
@@ -142,8 +166,10 @@ public class Table implements Serializable{
 		        in.close();
 		        fileIn.close();
 		        
-		        if( page.canAddRow())
+		        if( page.canAddRow()) {
+		        	System.out.println("reutrn existing page");
 		        	return page;
+		        }
 		        else
 		        	return newPage(strTableName);
 		        

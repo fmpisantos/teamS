@@ -19,14 +19,15 @@ public class Main {
 		htblColNameType.put("gpa", "java.lang.Double");
 		
 		Hashtable<String,Object> htblColNameValue = new Hashtable<String,Object>(); 
-		htblColNameValue.put("id", new Integer( 2343432 )); 
-		htblColNameValue.put("name", new String("Ahmed Noor" ) ); 
-		htblColNameValue.put("gpa", new Double( 0.95 ) ); 
+		htblColNameValue.put("id", new Integer( 23434324 )); 
+		htblColNameValue.put("name", new String("Ahmed Noorhhh TEST hihihi" ) ); 
+		htblColNameValue.put("gpa", new Double( 0.86 ) ); 
 		
 		
 		try {
-			dbApp.createTable( strTableName, "id", htblColNameType, null, null );
+			//dbApp.createTable( strTableName, "id", htblColNameType, null, null );
 			dbApp.insertIntoTable( strTableName , htblColNameValue );
+			dbApp.readTable(strTableName);
 		} catch (DBAppException e) {
 			System.out.println(e.getMessage());
 		}
