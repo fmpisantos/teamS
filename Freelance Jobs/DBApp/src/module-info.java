@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author bruno
- *
- */
-module DBApp {
-}
