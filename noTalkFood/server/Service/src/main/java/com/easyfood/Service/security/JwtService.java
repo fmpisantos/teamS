@@ -19,10 +19,10 @@ public class JwtService implements Serializable {
 
     private static final long serialVersionUID = -2550185165626007488L;
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;//TODO: make it configurable
+    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60; //TODO: make it configurable
 
-    @Value("${jwt.secret}")
-    private String secret;
+    //@Value("${jwt.secret}")
+    private String secret="404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"; //TODO: you know it
 
     //retrieve username from jwt token
     public String getUsernameFromToken(String token) {
